@@ -1,5 +1,3 @@
-$InstallDirectory = $args[0]
-
 $VimSettingsDirectory = "$PSScriptRoot\vim\settings"
 # Vim plugins
 $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -10,6 +8,12 @@ $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     )
 )
 
+$VimSettings = "$VimSettingsDirectory\.vim"
 # Vim settings
-"source $VimSettingsDirectory\.vim" > "$InstallDirectory\_vimrc"
+"source $VimSettings" > "$HOME\_vimrc"
+
+# Neovim settings
+$NeovimSettingsDirectoryOut = "$env:LOCALAPPDATA\nvim"
+New-Item -ItemType Directory -Force -Path "$NeovimSettingsDirectoryOut" > $null
+"source $VimSettings" > "$NeovimSettingsDirectoryOut\init.vim"
 
