@@ -17,3 +17,11 @@ $NeovimSettingsDirectoryOut = "$env:LOCALAPPDATA\nvim"
 New-Item -ItemType Directory -Force -Path "$NeovimSettingsDirectoryOut" > $null
 "source $VimSettings" > "$NeovimSettingsDirectoryOut\init.vim"
 
+# VsVim
+$VsVimSettingsDirectoryOut = "$HOME\vsvim"
+$VsVimCommonSettings = "$HOME\vsvim\common.vim"
+New-Item -ItemType Directory -Force -Path "$VsVimSettingsDirectoryOut" > $null
+"source $VimSettingsDirectory\common.vim" > "$VsVimCommonSettings"
+"source $VsVimCommonSettings" > "$HOME\_vsvimrc"
+"source $VimSettingsDirectory\vs.vim" >> "$HOME\_vsvimrc"
+

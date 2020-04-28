@@ -1,5 +1,3 @@
-exec 'source ~/vimfiles/common.vim'
-
 nnoremap <leader>s :vsc View.SolutionExplorer<CR>
 
 nnoremap <leader>h :vsc View.NavigateBackward<CR>
