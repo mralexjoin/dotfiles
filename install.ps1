@@ -52,6 +52,11 @@ $VimSettings = "$VimSettingsDirectory\.vim"
         $(Get-Item function:Make-Symbolic-Link),
         "$PSScriptRoot\powershell\profile.ps1",
         "$([Environment]::GetFolderPath("MyDocuments"))\PowerShell\Microsoft.PowerShell_profile.ps1"
+    ),
+    @(
+        $(Get-Item function:Make-Symbolic-Link),
+        "$PSScriptRoot\conemu\settings.xml",
+        "$env:APPDATA\ConEmu.xml"
     )
 ) | foreach {
    New-Item -ItemType Directory -Force -Path $(Split-Path -Path $_[2] -Parent) > $null
