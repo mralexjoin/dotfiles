@@ -27,7 +27,10 @@ set backspace=indent,eol,start
 " Numbers
 set number relativenumber
 
-"Search
+" Search
 set hlsearch
 set incsearch
+
+" New line in normal mode
+nnoremap <C-Y> a<CR><Esc>k$
 

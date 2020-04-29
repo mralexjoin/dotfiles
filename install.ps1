@@ -25,3 +25,13 @@ New-Item -ItemType Directory -Force -Path "$VsVimSettingsDirectoryOut" > $null
 "source $VsVimCommonSettings" > "$HOME\_vsvimrc"
 "source $VimSettingsDirectory\vs.vim" >> "$HOME\_vsvimrc"
 
+# Powershell
+Install-Module -Name posh-git   -Force -Scope CurrentUser
+Install-Module -Name oh-my-posh -Force -Scope CurrentUser
+
+$PSConfigOutPath = "$([Environment]::GetFolderPath("MyDocuments"))\PowerShell"
+New-Item -ItemType Directory -Force -Path "$PSConfigOutPath" > $null
+$PSConfigIn  = "$PSScriptRoot\powershell\profile.ps1"
+$PSConfigOut = "$PSConfigOutPath\Microsoft.PowerShell_profile.ps1"
+". $PSConfigIn" > $PSConfigOut
+
