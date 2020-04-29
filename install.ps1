@@ -1,3 +1,11 @@
+if ($PSVersionTable.PSVersion.Major -lt 6) {
+    throw "Version of PowerShell has to be not less than 6.0.0"
+}
+
+# Powershell
+Install-Module -Name posh-git   -Force -Scope CurrentUser
+Install-Module -Name oh-my-posh -Force -Scope CurrentUser
+
 $VimSettingsDirectory = "$PSScriptRoot\vim\settings"
 # Vim plugins
 $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -8,30 +16,45 @@ $uri = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     )
 )
 
+function Source-Vim-Config($In, $Out)
+{
+    "source $In" > $Out
+}
+
+function Make-Symbolic-Link($In, $Out)
+{
+    New-Item -ItemType SymbolicLink -Force -Value $In -Path $Out > $null
+}
+
 $VimSettings = "$VimSettingsDirectory\.vim"
-# Vim settings
-"source $VimSettings" > "$HOME\_vimrc"
-
-# Neovim settings
-$NeovimSettingsDirectoryOut = "$env:LOCALAPPDATA\nvim"
-New-Item -ItemType Directory -Force -Path "$NeovimSettingsDirectoryOut" > $null
-"source $VimSettings" > "$NeovimSettingsDirectoryOut\init.vim"
-
-# VsVim
-$VsVimSettingsDirectoryOut = "$HOME\vsvim"
-$VsVimCommonSettings = "$HOME\vsvim\common.vim"
-New-Item -ItemType Directory -Force -Path "$VsVimSettingsDirectoryOut" > $null
-"source $VimSettingsDirectory\common.vim" > "$VsVimCommonSettings"
-"source $VsVimCommonSettings" > "$HOME\_vsvimrc"
-"source $VimSettingsDirectory\vs.vim" >> "$HOME\_vsvimrc"
-
-# Powershell
-Install-Module -Name posh-git   -Force -Scope CurrentUser
-Install-Module -Name oh-my-posh -Force -Scope CurrentUser
-
-$PSConfigOutPath = "$([Environment]::GetFolderPath("MyDocuments"))\PowerShell"
-New-Item -ItemType Directory -Force -Path "$PSConfigOutPath" > $null
-$PSConfigIn  = "$PSScriptRoot\powershell\profile.ps1"
-$PSConfigOut = "$PSConfigOutPath\Microsoft.PowerShell_profile.ps1"
-". $PSConfigIn" > $PSConfigOut
+@(
+    @(
+        $(Get-Item function:Source-Vim-Config),
+        "$VimSettings",
+        "$HOME\_vimrc"
+    ),
+    @(
+        $(Get-Item function:Source-Vim-Config),
+        "$VimSettings",
+        "$env:LOCALAPPDATA\nvim\init.vim"
+    ),
+    @(
+        $(Get-Item function:Source-Vim-Config),
+        "$VimSettingsDirectory\common.vim",
+        "$HOME\vsvim\common.vim"
+    ),
+    @(
+        $(Get-Item function:Source-Vim-Config),
+        "$VimSettingsDirectory\vs.vim",
+        "$HOME\_vsvimrc"
+    ),
+    @(
+        $(Get-Item function:Make-Symbolic-Link),
+        "$PSScriptRoot\powershell\profile.ps1",
+        "$([Environment]::GetFolderPath("MyDocuments"))\PowerShell\Microsoft.PowerShell_profile.ps1"
+    )
+) | foreach {
+   New-Item -ItemType Directory -Force -Path $(Split-Path -Path $_[2] -Parent) > $null
+   & $_[0] $_[1] $_[2]
+}
 
