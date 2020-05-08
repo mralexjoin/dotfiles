@@ -7,8 +7,8 @@ nnoremap <leader>l :vsc View.NavigateForward<CR>
 nnoremap <leader>, :vsc Edit.CommentSelection<CR>
 nnoremap <leader>. :vsc Edit.UncommentSelection<CR>
 
-xnoremap <leader>, :vsc Edit.CommentSelection<CR>
-xnoremap <leader>. :vsc Edit.UncommentSelection<CR>
-
 nnoremap <leader>en :vsc View.NextError<CR>
 nnoremap <leader>eN :vsc View.PreviousError<CR>
+
+nnoremap <leader>td :vsc Edit.GoToDefinition<CR>
+
