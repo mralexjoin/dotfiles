@@ -49,6 +49,17 @@ set tabstop=4
 set shiftwidth=0
 set et
 
+" Wrap
+set wrap linebreak nolist
+
+set cursorline
+
+set ttimeoutlen=10
+" Different cursors for modes
+let &t_SI.="\e[5 q"
+let &t_SR.="\e[3 q"
+let &t_EI.="\e[1 q"
+
 " Syntax
 syntax on
 
@@ -75,7 +86,11 @@ if has('gui_running')
     colorscheme solarized8
     set lines=60 columns=108 linespace=0
     if has('gui_win32')
-        set guifont=Consolas:h11
+        set guifont=DejaVu_Sans_Mono_for_Powerline:h11
+        lan mes ru_RU.UTF-8
+        source $VIMRUNTIME/delmenu.vim
+        set langmenu=ru_RU.UTF-8
+        source $VIMRUNTIME/menu.vim
     endif
 endif
 
@@ -148,4 +163,11 @@ augroup numbertoggle
     autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
     autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
+
+" Airline
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#keymap#enabled = 0
+let g:airline_section_z = "\ue0a1:%l/%L Col:%c"
+let g:Powerline_symbols = 'unicode'
+let g:airline#extensions#xkblayout#enabled = 0
 
