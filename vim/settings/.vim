@@ -22,6 +22,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'PProvost/vim-ps1'
+Plug 'tpope/vim-surround'
 
 call plug#end()
 
@@ -56,9 +57,9 @@ set cursorline
 
 set ttimeoutlen=10
 " Different cursors for modes
-let &t_SI.="\e[5 q"
-let &t_SR.="\e[3 q"
-let &t_EI.="\e[1 q"
+"let &t_SI.="\e[5 q"
+"let &t_SR.="\e[3 q"
+"let &t_EI.="\e[1 q"
 
 " Syntax
 syntax on
