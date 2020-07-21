@@ -26,6 +26,11 @@ function Make-Symbolic-Link($In, $Out)
     New-Item -ItemType SymbolicLink -Force -Value $In -Path $Out > $null
 }
 
+function Copy-File($In, $Out)
+{
+    Copy-Item $In $Out -Force > $null
+}
+
 $VimSettings = "$VimSettingsDirectory\.vim"
 @(
     @(
@@ -49,12 +54,12 @@ $VimSettings = "$VimSettingsDirectory\.vim"
         "$HOME\_vsvimrc"
     ),
     @(
-        $(Get-Item function:Make-Symbolic-Link),
+        $(Get-Item function:Copy-File),
         "$PSScriptRoot\powershell\profile.ps1",
         "$([Environment]::GetFolderPath("MyDocuments"))\PowerShell\Microsoft.PowerShell_profile.ps1"
     ),
     @(
-        $(Get-Item function:Make-Symbolic-Link),
+        $(Get-Item function:Copy-File),
         "$PSScriptRoot\conemu\settings.xml",
         "$env:APPDATA\ConEmu.xml"
     )
