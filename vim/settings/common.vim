@@ -31,6 +31,15 @@ set number relativenumber
 set hlsearch
 set incsearch
 
+" Scroll
+set scrolloff=5
+set smoothscroll
+set mouse=a
+
 " New line in normal mode
 nnoremap <C-Y> a<CR><Esc>k$
+
+" Colors
+set termguicolors
+hi CursorLine cterm=NONE ctermbg=120 guibg=#2e2e2e
 

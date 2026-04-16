@@ -23,8 +23,11 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'PProvost/vim-ps1'
 Plug 'tpope/vim-surround'
+Plug 'ghifarit53/tokyonight-vim'
 
 call plug#end()
+
+colorscheme tokyonight
 
 autocmd VimEnter *
   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
